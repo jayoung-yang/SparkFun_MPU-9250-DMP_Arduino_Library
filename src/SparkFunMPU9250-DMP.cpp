@@ -15,12 +15,21 @@ SparkFun 9DoF Razor IMU M0
 Supported Platforms:
 - ATSAMD21 (Arduino Zero, SparkFun SAMD21 Breakouts)
 ******************************************************************************/
+#include <cmath>
+
 #include "SparkFunMPU9250-DMP.h"
 #include "MPU9250_RegisterMap.h"
 
 extern "C" {
 #include "util/inv_mpu.h"
 }
+
+// Define PI for better readability
+#ifndef PI
+#define PI M_PI
+#endif
+
+#define constrain(amt,low,high) ((amt)<(low)?(low):((amt)>(high)?(high):(amt)))
 
 static unsigned char mpu9250_orientation;
 static unsigned char tap_count;
@@ -40,8 +49,6 @@ inv_error_t MPU9250_DMP::begin(void)
 {
 	inv_error_t result;
     struct int_param_s int_param;
-	
-	Wire.begin();
 	
 	result = mpu_init(&int_param);
 	

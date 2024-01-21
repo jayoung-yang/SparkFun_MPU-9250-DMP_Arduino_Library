@@ -16,7 +16,6 @@ Supported Platforms:
 - ATSAMD21 (Arduino Zero, SparkFun SAMD21 Breakouts)
 ******************************************************************************/
 #include "arduino_mpu9250_log.h"
-#include <Arduino.h>
 #include <stdarg.h>
 
 // Based on log_stm32.c from Invensense motion_driver_6.12

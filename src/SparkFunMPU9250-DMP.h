@@ -18,8 +18,6 @@ Supported Platforms:
 #ifndef _SPARKFUN_MPU9250_DMP_H_
 #define _SPARKFUN_MPU9250_DMP_H_
 
-#include <Wire.h>
-#include <Arduino.h>
 
 // Optimally, these defines would be passed as compiler options, but Arduino
 // doesn't give us a great way to do that.

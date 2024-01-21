@@ -16,34 +16,31 @@ Supported Platforms:
 - ATSAMD21 (Arduino Zero, SparkFun SAMD21 Breakouts)
 ******************************************************************************/
 #include "arduino_mpu9250_i2c.h"
-#include <Arduino.h>
-#include <Wire.h>
+#include <pigpio.h>
 
-int arduino_i2c_write(unsigned char slave_addr, unsigned char reg_addr,
-                       unsigned char length, unsigned char * data)
+#define I2C_DEVICE 1
+#define I2C_DEVICE_ADDR 0x68
+#define I2C_FLAGS 0
+
+int arduino_i2c_open(int *i2c_handle)
 {
-	Wire.beginTransmission(slave_addr);
-	Wire.write(reg_addr);
-	for (unsigned char i = 0; i < length; i++)
-	{
-		Wire.write(data[i]);
-	}
-	Wire.endTransmission(true);
+	*i2c_handle = i2cOpen(I2C_DEVICE, I2C_DEVICE_ADDR, I2C_FLAGS);
+
+	return 0;
+}
+
+int arduino_i2c_write(int i2c_handle, unsigned char reg_addr,
+                       unsigned char length, char * data)
+{
+	i2cWriteBlockData(i2c_handle, reg_addr, data, length);
 	
 	return 0;
 }
 
-int arduino_i2c_read(unsigned char slave_addr, unsigned char reg_addr,
-                       unsigned char length, unsigned char * data)
+int arduino_i2c_read(int i2c_handle, unsigned char reg_addr,
+                       unsigned char length, char * data)
 {
-	Wire.beginTransmission(slave_addr);
-	Wire.write(reg_addr);
-	Wire.endTransmission(false);
-	Wire.requestFrom(slave_addr, length);
-	for (unsigned char i = 0; i < length; i++)
-	{
-		data[i] = Wire.read();
-	}
+	i2cReadBlockData(i2c_handle, reg_addr, data);
 	
 	return 0;
 }

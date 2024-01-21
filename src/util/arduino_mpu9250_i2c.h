@@ -22,10 +22,12 @@ Supported Platforms:
 extern "C" {
 #endif
 
-int arduino_i2c_write(unsigned char slave_addr, unsigned char reg_addr,
-                       unsigned char length, unsigned char * data);
-int arduino_i2c_read(unsigned char slave_addr, unsigned char reg_addr,
-                       unsigned char length, unsigned char * data);
+int arduino_i2c_open(int *i2c_handle);
+
+int arduino_i2c_write(int i2c_handle, unsigned char reg_addr,
+                       unsigned char length, char * data);
+int arduino_i2c_read(int i2c_handle, unsigned char reg_addr,
+                       unsigned char length, char * data);
 
 #if defined(__cplusplus) 
 }
