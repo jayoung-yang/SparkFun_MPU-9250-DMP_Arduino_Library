@@ -652,10 +652,15 @@ int mpu_read_reg(unsigned char reg, unsigned char *data)
  */
 int mpu_init(struct int_param_s *int_param)
 {
+    int ret = 0;
     unsigned char data[6];
 
     /* Initialize pigpio. */
-    gpioInitialise();
+    ret = gpioInitialise();
+    if (ret < 0) {
+        printf("gpioInitialise failed\n");
+        return -1;
+    }
 
     /* Open device. */
     i2c_open(&hw_handle);

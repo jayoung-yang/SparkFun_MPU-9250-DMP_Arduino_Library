@@ -32,7 +32,7 @@ int arduino_i2c_open(int *i2c_handle)
 int arduino_i2c_write(int i2c_handle, unsigned char reg_addr,
                        unsigned char length, char * data)
 {
-	i2cWriteBlockData(i2c_handle, reg_addr, data, length);
+	i2cWriteI2CBlockData(i2c_handle, reg_addr, data, length);
 	
 	return 0;
 }
@@ -40,7 +40,7 @@ int arduino_i2c_write(int i2c_handle, unsigned char reg_addr,
 int arduino_i2c_read(int i2c_handle, unsigned char reg_addr,
                        unsigned char length, char * data)
 {
-	i2cReadBlockData(i2c_handle, reg_addr, data);
+	i2cReadI2CBlockData(i2c_handle, reg_addr, data, length);
 	
 	return 0;
 }
